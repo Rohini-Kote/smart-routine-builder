@@ -10,7 +10,27 @@ api_key = os.getenv("GOOGLE_CSE_API_KEY")
 cse_id = os.getenv("GOOGLE_CSE_ID")
 
 
+def generate_routine(goal):
+    # Initialize agents
+    planner = PlannerAgent(GEMINI_API_KEY)
+    coach = CoachAgent(GEMINI_API_KEY)
+    progress = ProgressAgent(GEMINI_API_KEY)
+    search_tool = GoogleSearchTool(
+        api_key=os.getenv("GOOGLE_CSE_API_KEY"),
+        cse_id=os.getenv("GOOGLE_CSE_ID")
+    )
 
+    # Run agents
+    agent_outputs = run_agents_parallel(goal)
+    search_output = search_tool.search(goal)
+
+    # Return structured result
+    return {
+        "planner": agent_outputs["planner"],
+        "coach": agent_outputs["coach"],
+        "progress": agent_outputs["progress"],
+        "google_search": search_output
+    }
 
 
 def run_agents_parallel(goal):
@@ -73,6 +93,8 @@ def save_memory(state):
   
 search_tool = GoogleSearchTool(api_key=os.getenv("GOOGLE_CSE_API_KEY"),
                                cse_id=os.getenv("GOOGLE_CSE_ID"))
+
+
 
 # Main Function
 def main():
