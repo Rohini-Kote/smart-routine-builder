@@ -1,5 +1,7 @@
 import os
 import requests
+API_KEY = os.getenv("GOOGLE_CSE_API_KEY")
+CSE_ID = os.getenv("GOOGLE_CSE_ID")
 
 class GoogleSearchTool:
     def __init__(self, api_key=None, cse_id=None):
