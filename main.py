@@ -6,6 +6,10 @@ from agents.coach_agent import CoachAgent
 from agents.progress_agent import ProgressAgent
 from tools.google_search_tool import GoogleSearchTool
 import os 
+from dotenv import load_dotenv
+
+# Load .env file
+load_dotenv()
 api_key = os.getenv("GOOGLE_CSE_API_KEY")
 cse_id = os.getenv("GOOGLE_CSE_ID")
 
